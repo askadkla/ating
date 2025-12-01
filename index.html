@@ -1,0 +1,284 @@
+<!--
+ * @Author: YeChaoxuan
+ * @Date: 2020-12-21 09:07:44
+ * @LastEditTime: 2020-12-21 17:27:07
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \firework-master\新年快乐\fire.html
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <script id="jqbb" src="https://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <style>
+        body{margin:0;padding:0;overflow: hidden;} .city{width:100%;position:fixed;bottom:
+                0px;z-index: 100;} .city img{width: 100%;}
+        audio{
+            opacity: 0;
+        }
+    </style>
+    <title>
+        生日快乐
+    </title>
+    <!-- 弹窗样式 -->
+    <link href="modal.css" rel="stylesheet"/>
+
+    <style type="text/css">
+        html,
+        body {
+            background-color: black;
+            overflow: hidden;
+            user-select: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body onselectstart="return false">
+    <div class="star comet"></div>
+    <script src="js/index.js"></script>
+  
+<!--对话部分-->
+<div class="share_img"><img src="img/xin.png" alt=""></div>
+
+<div class="page_one">
+    <div class="content">
+        <div class="text_wrapper">
+            <img class="xin" src="img/xin.png" alt="" />
+            <div class="text" >
+                      阿婷，生日快乐，愿意看场专属于你的烟花秀吗！！！
+            </div>
+        </div>
+    </div>
+    <div class="btn-groups">
+        <div class="heart-btn">
+            <div id="yes" class="btn btn-a"><span>开始吧</span></div>
+        </div>
+        <div id="no" class="btn btn-b"><span>你走开</span></div>
+    </div>
+</div>
+<!--烟花部分-->
+<canvas id='cas' style="background-color:rgba(0,5,24,1); z-index: 9999;">
+    浏览器不支持canvas
+</canvas>
+<div class="city">
+    <img src="img/city.png" alt="" />
+</div>
+<img src="img/moon.png" alt="" id="moon" style="visibility: hidden;" />
+<div class="blessings-grid">
+    <div class="shape short">家人健康</div>
+    <div class="shape short">事业顺遂</div>
+    <div class="shape short">狂吃不胖</div>
+    <div class="shape short">自由暴富</div>
+    <div class="shape short">平安喜乐</div>
+    <div class="shape short">可可爱爱</div>
+    <div class="shape short">万事胜意</div>
+    <div class="shape short">一直陪你</div>
+<!--    <div class="shape long">愿时光待你以温柔，岁月予你以静好</div>-->
+<!--    <div class="shape long">往后余生，平安健康，喜乐无忧</div>-->
+<!--    <div class="shape long">愿一切美好都比你所期待的，还要好上一点点</div>-->
+<!--    <div class="shape long">希望温暖和爱，一直陪伴在你身边</div>-->
+<!--    <div class="shape medium">新的一岁，前方皆是坦途，未来充满希望</div>-->
+<!--    <div class="shape medium">时光不老，我们不散，情谊常在心间</div>-->
+<!--    <div class="shape medium">新的一岁，愿你依旧温暖如初，闪闪发光</div>-->
+<!--    <div class="shape medium">愿你在事业上乘风破浪，收获满满成就</div>-->
+<!--    <div class="shape medium">愿好运常伴，机遇频现，梦想皆可实现</div>-->
+<!--    <div class="shape medium">愿你享受美食无忧，保持健康活力</div>-->
+<!--    <div class="shape long">愿你有说走就走的勇气，也有享受旅途的心情</div>-->
+<!--    <div class="shape long">愿你有能做自己的自由，和敢做自己的胆量</div>-->
+<!--    <div class="shape medium">愿你的生活充满小确幸，对未来永远充满期待</div>-->
+<!--    <div class="shape medium">愿生活给你满满的甜蜜惊喜，快乐加倍</div>-->
+</div>
+<!--<div style="display:none">-->
+<!--    <div class="shape">-->
+<!--       ❤❤❤❤-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--       家人健康-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--       事业顺遂-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--       狂吃不胖-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--       自由暴富-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--       平安喜乐-->
+<!--    </div>-->
+<!--     <div class="shape">-->
+<!--       可可爱爱-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--       万事胜意-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--       一直陪你-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        愿时光待你以温柔，岁月予你以静好-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        往后余生，平安健康，喜乐无忧-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        愿一切美好都比你所期待的，还要好上一点点-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        希望温暖和爱，一直陪伴在你身边-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        新的一岁，前方皆是坦途，未来充满希望-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        时光不老，我们不散，情谊常在心间-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        新的一岁，愿你依旧温暖如初，闪闪发光-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        愿你在事业上乘风破浪，收获满满成就-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        愿好运常伴，机遇频现，梦想皆可实现-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        愿你享受美食无忧，保持健康活力-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        愿你有说走就走的勇气，也有享受旅途的心情-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        愿你有能做自己的自由，和敢做自己的胆量-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        愿你的生活充满小确幸，对未来永远充满期待-->
+<!--    </div>-->
+<!--    <div class="shape">-->
+<!--        愿生活给你满满的甜蜜惊喜，快乐加倍-->
+<!--    </div>-->
+<!--</div>-->
+<!--音乐部分-->
+<!-- <audio  autoplay="autoplay" loop="loop">
+    <source src="music/1.mp3" type="audio/mpeg">
+</audio> -->
+<audio  autoplay="autoplay" loop="loop">
+    <source src="https://phj-video.oss-cn-beijing.aliyuncs.com/1.mp3" type="audio/mpeg">
+</audio>
+<!--<iframe  id="iframMusic" allow="autoplay" style="display:none" src="music/1.mp3"></iframe>-->	
+<script src="jquery.min.js"></script>
+<script src="fire.js"></script>
+<script src="talk.js"></script>
+
+<!-- 鼠标跟谁 -->
+<!-- <script>
+    function reload_html() {
+        $("\x62\x6f\x64\x79")["\x68\x74\x6d\x6c"]("");
+    }
+
+    function addhtml(lViZBL1) {
+        $("\x62\x6f\x64\x79")["\x68\x74\x6d\x6c"](lViZBL1);
+    }
+
+    function addcss(CDEsDFFJ2) {
+        var EZS_sF3 = window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x63\x72\x65\x61\x74\x65\x45\x6c\x65\x6d\x65\x6e\x74"]("\x73\x74\x79\x6c\x65");
+        EZS_sF3["\x69\x6e\x6e\x65\x72\x48\x54\x4d\x4c"] = CDEsDFFJ2;
+        window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x71\x75\x65\x72\x79\x53\x65\x6c\x65\x63\x74\x6f\x72"]("\x62\x6f\x64\x79")["\x61\x70\x70\x65\x6e\x64\x43\x68\x69\x6c\x64"](EZS_sF3);
+    }
+
+    function addjs(qGZu4) {
+        $("\x62\x6f\x64\x79")["\x61\x70\x70\x65\x6e\x64"](qGZu4);
+    }
+
+    function jqban(nJ5) {
+        $("\x23\x6a\x71\x62\x62")["\x61\x74\x74\x72"]("\x73\x72\x63", "\x68\x74\x74\x70\x3a\x2f\x2f\x6c\x69\x62\x73\x2e\x62\x61\x69\x64\x75\x2e\x63\x6f\x6d\x2f\x6a\x71\x75\x65\x72\x79\x2f" + nJ5 + "\x2f\x6a\x71\x75\x65\x72\x79\x2e\x6d\x69\x6e\x2e\x6a\x73");
+    }
+</script> -->
+<!-- <script>
+    let doc = $(document),
+        mX, mY, letter = []
+    // let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789❤!@#$%^&*~`/.,<>?\|]}{[".split("")
+    /* 可自定义 */
+    let letters = "☆❤❤☆❤❤☆❤☆".split("")
+
+    mR = (n, i) => Math.floor(Math.random() * n) + i
+
+    inject = () => {
+        $("body").append("<canvas></canvas>")
+        can = document.querySelector("canvas")
+        con = can.getContext("2d")
+        init()
+    }
+
+    size = () => {
+        can.height = doc.height()
+        can.width = doc.width()
+    }
+
+    $(window).on("resize", () => {
+        size()
+    })
+
+    init = () => {
+        size()
+        think()
+    }
+
+    doc.on("mousemove", (e) => {
+        mX = e.pageX
+        mY = e.pageY
+        letter.push([mX - 10 + mR(20, 0), mY + mR(20, 0), letters[mR(letters.length, 0)], mR(10, 8), 1, mR(6, 1), mR(20, 0)])
+    })
+
+    dT = (x, y, t, s, c) => {
+        con.save()
+        con.font = "" + s + "px Lucida Console"
+        con.shadowColor = "rgba(0,0,0," + c + ")"
+        con.shadowBlur = s / 2
+        con.fillStyle = "rgba(0,204,255," + c + ")"
+        let tW = con.measureText(t).width
+        con.fillText(t, x - tW / 2, y)
+        con.restore()
+    }
+
+    dR = (x, y, w, h, c) => {
+        con.save()
+        con.beginPath()
+        con.rect(x, y, w, h)
+        con.fillStyle = c
+        con.fill()
+        con.restore()
+    }
+
+    think = () => {
+        let sC = mR(2, 1)
+        for (let i = 0; i < letter.length; i++) {
+            sC == 2 ? letter ? letter[i][2] = letters[mR(letters.length, 0)] : null : null
+            letter ? letter[i][1] -= letter[i][5] : null
+            letter[i][4] >= 0 ? letter[i][4] -= 0.01 : letter.splice(i, 1)
+        }
+        animate()
+        window.requestAnimationFrame(think)
+    }
+
+    animate = () => {
+        con.clearRect(0, 0, can.width, can.height)
+        for (let i = 0; i < letter.length; i++) {
+            dT(letter[i][0], letter[i][1], letter[i][2], letter[i][3], letter[i][4])
+            let rH = mR(540, 10)
+            let sH = mR(rH, 1)
+            letter[i][6] == 2 ? dR(letter[i][0], letter[i][1] - sH, letter[i][3] / 1.5, rH, "rgba(0, 204, 255, 0.05)") : null
+        }
+        /* 可固定文字 */
+        dT(can.width / 2, can.height / 2, "❤", 28, 0.5)
+    }
+
+    doc.ready(() => inject())
+</script> -->
+<!-- <script src="jq22-1.js"></script> -->
+</body>
+
+</html>
