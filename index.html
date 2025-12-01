@@ -63,7 +63,6 @@
         .music-control:hover .music-tooltip {
             opacity: 1;
         }
-        
     </style>
     <title>
         生日快乐
@@ -118,8 +117,6 @@
         <img src="img/city.png" alt="" />
     </div>
     <img src="img/moon.png" alt="" id="moon" style="visibility: hidden;" />
-    
-    <!-- 祝福语网格 - 初始隐藏 -->
     <div class="blessings-grid">
         <div class="shape short">家人健康</div>
         <div class="shape short">事业顺遂</div>
@@ -165,10 +162,8 @@
             const audio = document.getElementById('birthdayMusic');
             const musicControl = document.getElementById('musicControl');
             const musicIcon = musicControl.querySelector('.music-icon');
-            const blessingsGrid = document.querySelector('.blessings-grid');
-            const shapes = document.querySelectorAll('.shape');
             
-            // 初始状态：音乐暂停，祝福语隐藏
+            // 初始状态：音乐暂停
             audio.pause();
             let isPlaying = false;
             
@@ -234,31 +229,7 @@
             audio.addEventListener('canplay', function() {
                 console.log('音频可以播放');
             });
-            
-            // 点击"开始吧"按钮显示祝福语
-            $('#yes').click(function(event) {
-                // // 显示祝福语网格
-                // blessingsGrid.classList.add('show');
-                
-                // // 逐个显示祝福语
-                // shapes.forEach((shape, index) => {
-                //     setTimeout(() => {
-                //         shape.classList.add('show');
-                //     }, index * 100); // 每个祝福语延迟100ms显示
-                // });
-                
-                // 播放音乐
-                audio.play().then(() => {
-                    musicIcon.textContent = '🎵';
-                    musicControl.classList.add('playing');
-                    isPlaying = true;
-                }).catch(error => {
-                    console.log('播放失败，可能需要用户交互:', error);
-                });
-            });
         });
     </script>
 </body>
 </html>
-
-
