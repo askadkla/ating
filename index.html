@@ -237,15 +237,15 @@
             
             // 点击"开始吧"按钮显示祝福语
             $('#yes').click(function(event) {
-                // 显示祝福语网格
-                blessingsGrid.classList.add('show');
+                // // 显示祝福语网格
+                // blessingsGrid.classList.add('show');
                 
-                // 逐个显示祝福语
-                shapes.forEach((shape, index) => {
-                    setTimeout(() => {
-                        shape.classList.add('show');
-                    }, index * 100); // 每个祝福语延迟100ms显示
-                });
+                // // 逐个显示祝福语
+                // shapes.forEach((shape, index) => {
+                //     setTimeout(() => {
+                //         shape.classList.add('show');
+                //     }, index * 100); // 每个祝福语延迟100ms显示
+                // });
                 
                 // 播放音乐
                 audio.play().then(() => {
@@ -260,4 +260,5 @@
     </script>
 </body>
 </html>
+
 
