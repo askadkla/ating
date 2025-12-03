@@ -22,7 +22,8 @@ function animate() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.restore();
   var newTime = new Date();
-  if (newTime - lastTime > 500 + (window.innerHeight - 767) / 2) {
+  var speedMultiplier = 2.5; // 整体速度倍数，可根据需要调整
+  if (newTime - lastTime > (500 / speedMultiplier) + (window.innerHeight - 767) / 2) {
     var random = Math.random() * 100 > 33 ? true : false;
     var x = getRandom(canvas.width / 5, (canvas.width * 4) / 5);
     var y = getRandom(50, 200);
@@ -161,8 +162,9 @@ Boom.prototype = {
   _move: function () {
     var dx = this.boomArea.x - this.x,
       dy = this.boomArea.y - this.y;
-    this.x = this.x + dx * 0.01;
-    this.y = this.y + dy * 0.01;
+    var moveFactor = 0.01 * speedMultiplier; // 动态计算移动因子
+    this.x = this.x + dx * moveFactor;
+    this.y = this.y + dy * moveFactor;
     if (Math.abs(dx) <= this.ba && Math.abs(dy) <= this.ba) {
       if (this.shape) {
         this._shapBoom();
@@ -379,11 +381,12 @@ Frag.prototype = {
     this.ty = this.ty + 0.3;
     var dx = this.tx - this.x,
       dy = this.ty - this.y;
-    this.x = Math.abs(dx) < 0.1 ? this.tx : this.x + dx * 0.1;
-    this.y = Math.abs(dy) < 0.1 ? this.ty : this.y + dy * 0.1;
+    this.x = Math.abs(dx) < 0.1 ? this.tx : this.x + dx * 0.3;
+    this.y = Math.abs(dy) < 0.1 ? this.ty : this.y + dy * 0.3;
     if (dx === 0 && Math.abs(dy) <= 80) {
       this.dead = true;
     }
     this.paint();
   },
 };
+
