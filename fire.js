@@ -8,6 +8,10 @@ var bigbooms = [];
 
 // 新增：顺序循环祝福语的计数器
 var blessingIndex = 0;
+// 新增：跟踪当前是否有文字烟花在显示
+var hasActiveTextFirework = false;
+// 新增：跟踪当前是否有文字烟花在显示
+var hasActiveTextFirework = false;
 
 // window.onload = function() {
 //     initAnimate();
@@ -25,7 +29,7 @@ function animate() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.restore();
   var newTime = new Date();
-  if (newTime - lastTime > 800 + (window.innerHeight - 767) / 3) {
+  if (newTime - lastTime > 400 + (window.innerHeight - 767) / 4) {
     var random = Math.random() * 100 > 33 ? true : false;
     var x = getRandom(canvas.width / 5, (canvas.width * 4) / 5);
     var y = getRandom(50, 200);
@@ -41,26 +45,32 @@ function animate() {
       );
       bigbooms.push(bigboom);
     } else {
-      // 修改：使用顺序循环选择祝福语
-      var shapeElements = document.querySelectorAll(".shape");
-      if (shapeElements.length > 0) {
-        // 使用循环计数器选择祝福语
-        var selectedShape = shapeElements[blessingIndex % shapeElements.length];
+      // 修改：只在没有活跃文字烟花时才生成新的
+      if (!hasActiveTextFirework) {
+        var shapeElements = document.querySelectorAll(".shape");
+        if (shapeElements.length > 0) {
+          // 使用循环计数器选择祝福语
+          var selectedShape =
+            shapeElements[blessingIndex % shapeElements.length];
 
-        var bigboom = new Boom(
-          getRandom(canvas.width / 3, (canvas.width * 2) / 3),
-          2,
-          "#FFF",
-          {
-            x: canvas.width / 2,
-            y: 200,
-          },
-          selectedShape
-        );
-        bigbooms.push(bigboom);
+          var bigboom = new Boom(
+            getRandom(canvas.width / 3, (canvas.width * 2) / 3),
+            2,
+            "#FFF",
+            {
+              x: canvas.width / 2,
+              y: 200,
+            },
+            selectedShape
+          );
+          bigbooms.push(bigboom);
 
-        // 递增计数器，实现循环
-        blessingIndex++;
+          // 递增计数器，实现循环
+          blessingIndex++;
+
+          // 标记有活跃的文字烟花
+          hasActiveTextFirework = true;
+        }
       }
     }
     lastTime = newTime;
@@ -82,6 +92,10 @@ function animate() {
         } else {
           if (index === that.booms.length - 1) {
             bigbooms[bigbooms.indexOf(that)] = null;
+            // 如果是文字烟花完全消失，重置状态
+            if (that.shape) {
+              hasActiveTextFirework = false;
+            }
           }
         }
       });
@@ -397,7 +411,7 @@ Frag.prototype = {
     ctx.restore();
   },
   moveTo: function (index) {
-    this.ty = this.ty + 0.3; // 恢复更快的下落速度
+    this.ty = this.ty + 0.15; // 减慢下落速度，从0.3改为0.15
     var dx = this.tx - this.x,
       dy = this.ty - this.y;
     this.x = Math.abs(dx) < 0.1 ? this.tx : this.x + dx * 0.1;
@@ -406,8 +420,8 @@ Frag.prototype = {
     // 增加生命周期计数器
     this.lifeTime++;
 
-    // 修改消失条件：减少显示时间为60帧（约1秒）和更小的距离阈值
-    if (dx === 0 && Math.abs(dy) <= 80 && this.lifeTime > 60) {
+    // 修改消失条件：增加显示时间为300帧（约5秒）和更大的距离阈值
+    if (dx === 0 && Math.abs(dy) <= 200 && this.lifeTime > 300) {
       this.dead = true;
     }
     this.paint();
