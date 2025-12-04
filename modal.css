@@ -17,6 +17,7 @@
   display: flex;
 }
 .text_wrapper .text {
+  font-size: 24px;
   padding-top: 20px;
   padding-left: 20px;
 }
