@@ -25,7 +25,7 @@ function animate() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.restore();
   var newTime = new Date();
-  if (newTime - lastTime > 300 + (window.innerHeight - 767) / 3) {
+  if (newTime - lastTime > 800 + (window.innerHeight - 767) / 3) {
     var random = Math.random() * 100 > 33 ? true : false;
     var x = getRandom(canvas.width / 5, (canvas.width * 4) / 5);
     var y = getRandom(50, 200);
@@ -226,12 +226,8 @@ Boom.prototype = {
     putValue(ocas, octx, this.shape, 5, function (dots) {
       var dx = canvas.width / 2 - that.x;
       var dy = canvas.height / 2 - that.y;
-      
-      // 修改：减少粒子数量，避免一下子全部跳出来
-      var particleCount = Math.min(dots.length, 50); // 限制最多50个粒子
-      var step = Math.max(1, Math.floor(dots.length / particleCount)); // 计算采样步长
-      
-      for (var i = 0; i < dots.length; i += step) {
+
+      for (var i = 0; i < dots.length; i++) {
         color = {
           a: dots[i].a,
           b: dots[i].b,
