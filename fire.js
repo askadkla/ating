@@ -6,6 +6,9 @@ ocas.width = canvas.width = window.innerWidth;
 ocas.height = canvas.height = window.innerHeight;
 var bigbooms = [];
 
+// 新增：顺序循环祝福语的计数器
+var blessingIndex = 0;
+
 // window.onload = function() {
 //     initAnimate();
 // };
@@ -38,19 +41,27 @@ function animate() {
       );
       bigbooms.push(bigboom);
     } else {
-      var bigboom = new Boom(
-        getRandom(canvas.width / 3, (canvas.width * 2) / 3),
-        2,
-        "#FFF",
-        {
-          x: canvas.width / 2,
-          y: 200,
-        },
-        document.querySelectorAll(".shape")[
-          parseInt(getRandom(0, document.querySelectorAll(".shape").length))
-        ]
-      );
-      bigbooms.push(bigboom);
+      // 修改：使用顺序循环选择祝福语
+      var shapeElements = document.querySelectorAll(".shape");
+      if (shapeElements.length > 0) {
+        // 使用循环计数器选择祝福语
+        var selectedShape = shapeElements[blessingIndex % shapeElements.length];
+
+        var bigboom = new Boom(
+          getRandom(canvas.width / 3, (canvas.width * 2) / 3),
+          2,
+          "#FFF",
+          {
+            x: canvas.width / 2,
+            y: 200,
+          },
+          selectedShape
+        );
+        bigbooms.push(bigboom);
+
+        // 递增计数器，实现循环
+        blessingIndex++;
+      }
     }
     lastTime = newTime;
     console.log(bigbooms);
