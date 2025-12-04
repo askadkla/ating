@@ -22,7 +22,7 @@ function animate() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.restore();
   var newTime = new Date();
-  if (newTime - lastTime > 500 + (window.innerHeight - 767) / 2) {
+  if (newTime - lastTime > 300 + (window.innerHeight - 767) / 3) {
     var random = Math.random() * 100 > 33 ? true : false;
     var x = getRandom(canvas.width / 5, (canvas.width * 4) / 5);
     var y = getRandom(50, 200);
@@ -364,6 +364,7 @@ var Frag = function (centerX, centerY, radius, color, tx, ty) {
   this.centerY = centerY;
   this.radius = radius;
   this.color = color;
+  this.lifeTime = 0; // 新增：生命周期计数器
 };
 Frag.prototype = {
   paint: function () {
@@ -376,12 +377,17 @@ Frag.prototype = {
     ctx.restore();
   },
   moveTo: function (index) {
-    this.ty = this.ty + 0.3;
+    this.ty = this.ty + 0.15;
     var dx = this.tx - this.x,
       dy = this.ty - this.y;
     this.x = Math.abs(dx) < 0.1 ? this.tx : this.x + dx * 0.1;
     this.y = Math.abs(dy) < 0.1 ? this.ty : this.y + dy * 0.1;
-    if (dx === 0 && Math.abs(dy) <= 80) {
+
+    // 增加生命周期计数器
+    this.lifeTime++;
+
+    // 修改消失条件：增加最小显示时间（至少显示200帧，约3.3秒）和更大的距离阈值
+    if (dx === 0 && Math.abs(dy) <= 200 && this.lifeTime > 200) {
       this.dead = true;
     }
     this.paint();
