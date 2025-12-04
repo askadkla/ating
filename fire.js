@@ -10,8 +10,10 @@ var bigbooms = [];
 var blessingIndex = 0;
 // 新增：跟踪当前是否有文字烟花在显示
 var hasActiveTextFirework = false;
-// 新增：跟踪当前是否有文字烟花在显示
-var hasActiveTextFirework = false;
+// 新增：文字烟花的最后消失时间
+var lastTextFireworkTime = 0;
+// 新增：记录上一个文字烟花的位置
+var lastTextPosition = { x: canvas.width / 2, y: 200 };
 
 // window.onload = function() {
 //     initAnimate();
@@ -29,7 +31,7 @@ function animate() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.restore();
   var newTime = new Date();
-  if (newTime - lastTime > 400 + (window.innerHeight - 767) / 4) {
+  if (newTime - lastTime > 200 + (window.innerHeight - 767) / 5) {
     var random = Math.random() * 100 > 33 ? true : false;
     var x = getRandom(canvas.width / 5, (canvas.width * 4) / 5);
     var y = getRandom(50, 200);
@@ -45,22 +47,43 @@ function animate() {
       );
       bigbooms.push(bigboom);
     } else {
-      // 修改：只在没有活跃文字烟花时才生成新的
-      if (!hasActiveTextFirework) {
+      // 修改：只在没有活跃文字烟花时且间隔足够时才生成新的
+      if (newTime - lastTextFireworkTime > 600) {
         var shapeElements = document.querySelectorAll(".shape");
         if (shapeElements.length > 0) {
           // 使用循环计数器选择祝福语
           var selectedShape =
             shapeElements[blessingIndex % shapeElements.length];
 
+          // 生成新的位置，避免与上一个文字重叠
+          var newPosition = {
+            x: getRandom(canvas.width / 4, (canvas.width * 3) / 4),
+            y: getRandom(150, 300),
+          };
+
+          // 确保与上一个位置有足够距离
+          var distance = Math.sqrt(
+            Math.pow(newPosition.x - lastTextPosition.x, 2) +
+              Math.pow(newPosition.y - lastTextPosition.y, 2)
+          );
+
+          // 如果距离太近，重新生成位置
+          var attempts = 0;
+          while (distance < 200 && attempts < 5) {
+            newPosition.x = getRandom(canvas.width / 4, (canvas.width * 3) / 4);
+            newPosition.y = getRandom(150, 300);
+            distance = Math.sqrt(
+              Math.pow(newPosition.x - lastTextPosition.x, 2) +
+                Math.pow(newPosition.y - lastTextPosition.y, 2)
+            );
+            attempts++;
+          }
+
           var bigboom = new Boom(
             getRandom(canvas.width / 3, (canvas.width * 2) / 3),
             2,
             "#FFF",
-            {
-              x: canvas.width / 2,
-              y: 200,
-            },
+            newPosition,
             selectedShape
           );
           bigbooms.push(bigboom);
@@ -70,6 +93,9 @@ function animate() {
 
           // 标记有活跃的文字烟花
           hasActiveTextFirework = true;
+
+          // 更新上一个位置
+          lastTextPosition = newPosition;
         }
       }
     }
@@ -95,6 +121,7 @@ function animate() {
             // 如果是文字烟花完全消失，重置状态
             if (that.shape) {
               hasActiveTextFirework = false;
+              lastTextFireworkTime = new Date();
             }
           }
         }
@@ -411,7 +438,7 @@ Frag.prototype = {
     ctx.restore();
   },
   moveTo: function (index) {
-    this.ty = this.ty + 0.15; // 减慢下落速度，从0.3改为0.15
+    this.ty = this.ty + 0.25; // 加快下落速度，从0.15改为0.25
     var dx = this.tx - this.x,
       dy = this.ty - this.y;
     this.x = Math.abs(dx) < 0.1 ? this.tx : this.x + dx * 0.1;
@@ -420,8 +447,8 @@ Frag.prototype = {
     // 增加生命周期计数器
     this.lifeTime++;
 
-    // 修改消失条件：增加显示时间为300帧（约5秒）和更大的距离阈值
-    if (dx === 0 && Math.abs(dy) <= 200 && this.lifeTime > 300) {
+    // 修改消失条件：设置显示时间为120帧（约2秒）和适中的距离阈值
+    if (dx === 0 && Math.abs(dy) <= 100 && this.lifeTime > 120) {
       this.dead = true;
     }
     this.paint();
