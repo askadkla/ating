@@ -226,7 +226,12 @@ Boom.prototype = {
     putValue(ocas, octx, this.shape, 5, function (dots) {
       var dx = canvas.width / 2 - that.x;
       var dy = canvas.height / 2 - that.y;
-      for (var i = 0; i < dots.length; i++) {
+      
+      // 修改：减少粒子数量，避免一下子全部跳出来
+      var particleCount = Math.min(dots.length, 50); // 限制最多50个粒子
+      var step = Math.max(1, Math.floor(dots.length / particleCount)); // 计算采样步长
+      
+      for (var i = 0; i < dots.length; i += step) {
         color = {
           a: dots[i].a,
           b: dots[i].b,
@@ -287,16 +292,24 @@ function putValue(canvas, context, ele, dr, callback) {
       parseInt(getRandom(128, 255)) +
       " , 1)";
 
-    // 处理多行文本
+    // 处理多行文本 - 改为分层显示效果
     var textLines = textContent.split("\n");
-    var lineHeight = fontSize * 1.2;
-    var totalHeight = textLines.length * lineHeight;
-    var startY = canvas.height / 2 - totalHeight / 2 + lineHeight / 2;
 
-    // 逐行绘制文本
-    for (var i = 0; i < textLines.length; i++) {
-      var y = startY + i * lineHeight;
-      context.fillText(textLines[i], canvas.width / 2, y);
+    // 对于多行文本，每行在不同的Y位置显示，并错开时间
+    if (textLines.length > 1) {
+      var lineHeight = fontSize * 1.5; // 增加行间距避免重叠
+      var totalHeight = textLines.length * lineHeight;
+      var startY = canvas.height / 2 - totalHeight / 2 + lineHeight / 2;
+
+      // 逐行绘制文本，每行稍微错开X位置
+      for (var i = 0; i < textLines.length; i++) {
+        var y = startY + i * lineHeight;
+        var x = canvas.width / 2 + (i - Math.floor(textLines.length / 2)) * 20; // 每行错开20像素
+        context.fillText(textLines[i], x, y);
+      }
+    } else {
+      // 单行文本正常显示
+      context.fillText(textContent, canvas.width / 2, canvas.height / 2);
     }
 
     context.restore();
@@ -388,7 +401,7 @@ Frag.prototype = {
     ctx.restore();
   },
   moveTo: function (index) {
-    this.ty = this.ty + 0.15;
+    this.ty = this.ty + 0.3; // 恢复更快的下落速度
     var dx = this.tx - this.x,
       dy = this.ty - this.y;
     this.x = Math.abs(dx) < 0.1 ? this.tx : this.x + dx * 0.1;
@@ -397,8 +410,8 @@ Frag.prototype = {
     // 增加生命周期计数器
     this.lifeTime++;
 
-    // 修改消失条件：增加最小显示时间（至少显示200帧，约3.3秒）和更大的距离阈值
-    if (dx === 0 && Math.abs(dy) <= 200 && this.lifeTime > 200) {
+    // 修改消失条件：减少显示时间为60帧（约1秒）和更小的距离阈值
+    if (dx === 0 && Math.abs(dy) <= 80 && this.lifeTime > 60) {
       this.dead = true;
     }
     this.paint();
