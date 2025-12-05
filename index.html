@@ -1,247 +1,261 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <link rel="stylesheet" href="css/style.css" />
     <script
-      id="jqbb"
-      src="https://libs.baidu.com/jquery/1.11.1/jquery.min.js"
+            id="jqbb"
+            src="https://libs.baidu.com/jquery/1.11.1/jquery.min.js"
     ></script>
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-      .city {
-        width: 100%;
-        position: fixed;
-        bottom: 0px;
-        z-index: 100;
-      }
-      .city img {
-        width: 100%;
-      }
-      audio {
-        opacity: 0;
-      }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .city {
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            z-index: 100;
+        }
+        .city img {
+            width: 100%;
+        }
+        audio {
+            opacity: 0;
+        }
 
-      /* 新增音乐控制按钮样式 */
-      .music-control {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 10000;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-      }
+        /* 新增音乐控制按钮样式 */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
 
-      .music-control:hover {
-        transform: scale(1.1);
-        background: rgba(255, 255, 255, 0.3);
-      }
+        .music-control:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
 
-      .music-icon {
-        font-size: 24px;
-        color: white;
-        transition: all 0.3s ease;
-      }
+        .music-icon {
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s ease;
+        }
 
-      .music-control.playing .music-icon {
-        color: #ff6b6b;
-      }
+        .music-control.playing .music-icon {
+            color: #ff6b6b;
+        }
 
-      .music-tooltip {
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        white-space: nowrap;
-        opacity: 0;
-        transition: opacity 0.3s;
-        pointer-events: none;
-      }
+        .music-tooltip {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
 
-      .music-control:hover .music-tooltip {
-        opacity: 1;
-      }
+        .music-control:hover .music-tooltip {
+            opacity: 1;
+        }
     </style>
     <title>生日快乐</title>
     <!-- 弹窗样式 -->
     <link href="modal.css" rel="stylesheet" />
 
     <style type="text/css">
-      html,
-      body {
-        background-color: black;
-        overflow: hidden;
-        user-select: none;
-        margin: 0;
-      }
+        html,
+        body {
+            background-color: black;
+            overflow: hidden;
+            user-select: none;
+            margin: 0;
+        }
     </style>
-  </head>
-  <body onselectstart="return false">
-    <div class="star comet"></div>
-    <script src="js/index.js"></script>
+</head>
+<body onselectstart="return false">
+<div class="star comet"></div>
+<script src="js/index.js"></script>
 
-    <!-- 新增音乐控制按钮 -->
-    <div class="music-control" id="musicControl">
-      <div class="music-icon">🎵</div>
-      <div class="music-tooltip">点击控制音乐</div>
-    </div>
+<!-- 新增音乐控制按钮 -->
+<div class="music-control" id="musicControl">
+    <div class="music-icon">🎵</div>
+    <div class="music-tooltip">点击控制音乐</div>
+</div>
 
-    <!--对话部分-->
-    <div class="share_img"><img src="img/xin.png" alt="" /></div>
+<!--对话部分-->
+<div class="share_img"><img src="img/xin.png" alt="" /></div>
 
-    <div class="page_one">
-      <div class="content">
+<div class="page_one">
+    <div class="content">
         <div class="text_wrapper" style="margin-bottom: 100px">
-          <img class="xin" src="img/xin.png" alt="" style="width: 300px" />
-          <div class="text" style="font-size: 38px">
-            阿婷，生日快乐，愿意看场专属于你的烟花秀吗！！！
-          </div>
+            <img class="xin" src="img/xin.png" alt="" style="width: 300px" />
+            <div class="text" style="font-size: 38px">
+                阿婷，生日快乐，愿意看场专属于你的烟花秀吗！！！
+            </div>
         </div>
-      </div>
-      <div class="btn-groups">
+    </div>
+    <div class="btn-groups">
         <div class="heart-btn">
-          <div id="yes" class="btn btn-a" style="font-size: 22px">
-            <span>开始</span>
-          </div>
+            <div id="yes" class="btn btn-a" style="font-size: 22px">
+                <span>开始</span>
+            </div>
         </div>
         <div id="no" class="btn btn-b" style="font-size: 22px">
-          <span>婉拒</span>
+            <span>婉拒</span>
         </div>
-      </div>
     </div>
-    <!--烟花部分-->
-    <canvas id="cas" style="background-color: rgba(0, 5, 24, 1); z-index: 9999">
-      浏览器不支持canvas
-    </canvas>
-    <div class="city">
-      <img src="img/city.png" alt="" />
+</div>
+<!--烟花部分-->
+<canvas id="cas" style="background-color: rgba(0, 5, 24, 1); z-index: 9999">
+    浏览器不支持canvas
+</canvas>
+<div class="city">
+    <img src="img/city.png" alt="" />
+</div>
+<img src="img/moon.png" alt="" id="moon" style="visibility: hidden" />
+<div class="blessings-grid">
+    <div class="shape long">
+        <div>愿每个晴天</div>
+        <div>阳光总能打在你脸上，</div>
+        <div>生日快乐</div>
     </div>
-    <img src="img/moon.png" alt="" id="moon" style="visibility: hidden" />
-    <div class="blessings-grid">
-      <div class="shape long">
+    <div class="shape medium">
+        <div>愿你的</div>
+        <div>每一岁，</div>
+        <div>都能奔走在</div>
+        <div>热爱里</div>
+    </div>
+    <div class="shape short">生日快乐</div>
+    <div class="shape long">
         <div>愿时光</div>
-        <div>待你以温柔，岁月</div>
+        <div>待你以温柔，</div>
+        <div>岁月，</div>
         <div>予你以静好</div>
-      </div>
-      <div class="shape long">
+    </div>
+    <div class="shape medium">
         <div>往后余生，</div>
         <div>平安健康，</div>
         <div>喜乐无忧</div>
-      </div>
-      <div class="shape short">万事胜意</div>
-      <div class="shape medium">
+    </div>
+    <div class="shape short">万事胜意</div>
+    <div class="shape medium">
         <div>新的一岁，</div>
         <div>前方皆是坦途，</div>
         <div>未来充满希望</div>
-      </div>
-      <div class="shape short">一直陪你</div>
-      <div class="shape long">
-        <div>希望温暖和爱</div>
-        <div>，一直陪伴</div>
+    </div>
+    <div class="shape short">一直陪你</div>
+    <div class="shape long">
+        <div>希望温暖和爱，</div>
+        <div>一直陪伴，</div>
         <div>在你身边</div>
-      </div>
-      <div class="shape short">可可爱爱</div>
+    </div>
+    <div class="shape short">可可爱爱</div>
 
-      <div class="shape medium">
+    <div class="shape medium">
         <div>时光不老，</div>
         <div>我们不散，</div>
         <div>情谊常在心间</div>
-      </div>
-      <div class="shape short">平安喜乐</div>
+    </div>
+    <div class="shape short">平安喜乐</div>
 
-      <div class="shape medium">
+    <div class="shape medium">
         <div>新的一岁，</div>
         <div>愿你依旧</div>
         <div>温暖如初，</div>
         <div>闪闪发光</div>
-      </div>
-      <div class="shape short">家人健康</div>
+    </div>
+    <div class="shape short">家人健康</div>
 
-      <div class="shape medium">
+    <div class="shape medium">
         <div>愿你的事业</div>
         <div>乘风破浪，</div>
         <div>收获满满成就</div>
-      </div>
-      <div class="shape short">事业顺遂</div>
+    </div>
+    <div class="shape short">事业顺遂</div>
 
-      <div class="shape medium">
+    <div class="shape medium">
         <div>愿好运常伴，</div>
         <div>机遇频现，</div>
         <div>梦想皆可实现</div>
-      </div>
-      <div class="shape short">狂吃不胖</div>
-      <div class="shape medium">
+    </div>
+    <div class="shape short">狂吃不胖</div>
+    <div class="shape medium">
         <div>愿你享受</div>
         <div>美食无忧，</div>
         <div>保持健康活力</div>
-      </div>
-      <div class="shape short">自由暴富</div>
+    </div>
+    <div class="shape short">自由暴富</div>
 
-      <div class="shape long">
+    <div class="shape long">
         <div>愿你有</div>
         <div>说走就走</div>
         <div>的勇气，</div>
         <div>也有享受</div>
         <div>旅途的心情</div>
-      </div>
-      <div class="shape long">
-        <div>愿你有能做</div>
-        <div>自己的自由，</div>
-        <div>和敢做</div>
-        <div>自己的胆量</div>
-      </div>
-      <div class="shape medium">
+    </div>
+    <div class="shape medium">
         <div>愿你的生活</div>
         <div>充满小确幸，</div>
         <div>对未来永远</div>
         <div>充满期待</div>
-      </div>
-      <div class="shape medium">
+    </div>
+    <div class="shape short">每天开心</div>
+    <div class="shape long">
+        <div>愿你有能做</div>
+        <div>自己的自由，</div>
+        <div>和敢做</div>
+        <div>自己的胆量</div>
+    </div>
+    <div class="shape medium">
         <div>愿生活给你</div>
         <div>满满的甜蜜惊喜，</div>
         <div>快乐加倍</div>
-      </div>
     </div>
+</div>
 
-    <!--音乐部分-->
-    <audio id="birthdayMusic" loop>
-      <!-- 使用外部托管的生日音乐 -->
-      <source
-        src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3"
-        type="audio/mpeg"
-      />
-      <!-- 备用音乐源 -->
-      <source
-        src="https://assets.mixkit.co/music/preview/mixkit-birthday-happy-3.mp3"
-        type="audio/mpeg"
-      />
-      您的浏览器不支持音频播放
-    </audio>
+<!--音乐部分-->
+<audio id="birthdayMusic" loop>
+    <!-- 使用外部托管的生日音乐 -->
+    <source
+            src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3"
+            type="audio/mpeg"
+    />
+    <!-- 备用音乐源 -->
+    <source
+            src="https://assets.mixkit.co/music/preview/mixkit-birthday-happy-3.mp3"
+            type="audio/mpeg"
+    />
+    您的浏览器不支持音频播放
+</audio>
 
-    <script src="jquery.min.js"></script>
-    <script src="fire.js"></script>
-    <script src="talk.js"></script>
+<script src="jquery.min.js"></script>
+<script src="fire.js"></script>
+<script src="talk.js"></script>
 
-    <!-- 新增音乐控制脚本 -->
-    <script>
-      $(document).ready(function () {
+<!-- 新增音乐控制脚本 -->
+<script>
+    $(document).ready(function () {
         // 获取音频元素和控制按钮
         const audio = document.getElementById("birthdayMusic");
         const musicControl = document.getElementById("musicControl");
@@ -253,73 +267,73 @@
 
         // 音乐控制按钮点击事件
         musicControl.addEventListener("click", function () {
-          if (isPlaying) {
-            // 暂停音乐
-            audio.pause();
-            musicIcon.textContent = "🔇";
-            musicControl.classList.remove("playing");
-            isPlaying = false;
-          } else {
-            // 播放音乐
-            audio
-              .play()
-              .then(() => {
-                musicIcon.textContent = "🎵";
-                musicControl.classList.add("playing");
-                isPlaying = true;
-              })
-              .catch((error) => {
-                console.log("播放失败，可能需要用户交互:", error);
-                // 如果自动播放被阻止，提示用户
-                alert('请点击"开始吧"按钮后，再点击音乐图标播放音乐');
-              });
-          }
+            if (isPlaying) {
+                // 暂停音乐
+                audio.pause();
+                musicIcon.textContent = "🔇";
+                musicControl.classList.remove("playing");
+                isPlaying = false;
+            } else {
+                // 播放音乐
+                audio
+                    .play()
+                    .then(() => {
+                        musicIcon.textContent = "🎵";
+                        musicControl.classList.add("playing");
+                        isPlaying = true;
+                    })
+                    .catch((error) => {
+                        console.log("播放失败，可能需要用户交互:", error);
+                        // 如果自动播放被阻止，提示用户
+                        alert('请点击"开始吧"按钮后，再点击音乐图标播放音乐');
+                    });
+            }
         });
 
         // 页面首次交互时尝试自动播放（解决浏览器限制）
         let hasInteracted = false;
 
         document.addEventListener("click", function firstInteraction() {
-          if (!hasInteracted) {
-            hasInteracted = true;
-            // 尝试自动播放音乐
-            audio
-              .play()
-              .then(() => {
-                musicIcon.textContent = "🎵";
-                musicControl.classList.add("playing");
-                isPlaying = true;
-              })
-              .catch((e) => {
-                // 自动播放被阻止是正常现象
-                console.log("自动播放被阻止，需要用户明确交互");
-              });
+            if (!hasInteracted) {
+                hasInteracted = true;
+                // 尝试自动播放音乐
+                audio
+                    .play()
+                    .then(() => {
+                        musicIcon.textContent = "🎵";
+                        musicControl.classList.add("playing");
+                        isPlaying = true;
+                    })
+                    .catch((e) => {
+                        // 自动播放被阻止是正常现象
+                        console.log("自动播放被阻止，需要用户明确交互");
+                    });
 
-            // 移除事件监听
-            document.removeEventListener("click", firstInteraction);
-          }
+                // 移除事件监听
+                document.removeEventListener("click", firstInteraction);
+            }
         });
 
         // 监听音频结束事件，实现无缝循环
         audio.addEventListener("ended", function () {
-          audio.currentTime = 0;
-          if (isPlaying) {
-            audio.play();
-          }
+            audio.currentTime = 0;
+            if (isPlaying) {
+                audio.play();
+            }
         });
 
         // 音频加载错误处理
         audio.addEventListener("error", function (e) {
-          console.error("音频加载错误:", e);
-          musicIcon.textContent = "❌";
-          musicControl.title = "音乐加载失败，请检查网络连接";
+            console.error("音频加载错误:", e);
+            musicIcon.textContent = "❌";
+            musicControl.title = "音乐加载失败，请检查网络连接";
         });
 
         // 音频加载成功
         audio.addEventListener("canplay", function () {
-          console.log("音频可以播放");
+            console.log("音频可以播放");
         });
-      });
-    </script>
-  </body>
+    });
+</script>
+</body>
 </html>
